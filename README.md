@@ -1,6 +1,6 @@
 # frontlabo
 
-> My hunky-dory Nuxt.js project
+> My dazzling Nuxt.js project
 
 ## Build Setup
 
