@@ -31,6 +31,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+		{src: '@/plugins/ga.js',ssr: false},
 		'@/plugins/element-ui',
 		'~/plugins/contentful'
   ],
@@ -41,14 +42,18 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
 		'@nuxtjs/axios',
 		'@nuxtjs/dotenv',
-    '@nuxtjs/markdownit'
+		'@nuxtjs/markdownit',
+		'@nuxtjs/google-analytics'
 	],
 	markdownit: {
     injected: true,
     html: true,
     linkify: true,
     typography: true,
-  },
+	},
+	googleAnalytics: {
+		id: 'UA-149453538-2'
+	},
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
