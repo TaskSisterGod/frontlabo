@@ -1,12 +1,38 @@
 <template>
   <div>
+		<TheHeader />
     <nuxt />
+		<TheError v-if="error" :message="error" />
+		<TheFooter />
   </div>
 </template>
 
+<script>
+import { mapGetters, mapState, mapActions } from 'vuex'
+import TheHeader from '@/layouts/partial/TheHeader'
+import TheError from '@/layouts/partial/TheError'
+import TheFooter from '@/layouts/partial/TheFooter'
+
+export default {
+	components: {
+		TheHeader,
+		TheError,
+		TheFooter,
+	},
+	data() {
+		return {
+			error: 'error'
+		}
+	},
+	head: {
+    title: 'frontLabo',
+	},
+}
+</script>
+
 <style>
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  font-family: 'Arial Rounded MT Bold','Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
