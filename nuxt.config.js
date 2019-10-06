@@ -1,5 +1,20 @@
 require("dotenv").config() //一番上に
-const client = require("./plugins/contentful")
+import { createClient } from 'contentful'
+import { CONTENT_TYPE_TAG, POSTS_PER_PAGE } from './config/setting'
+
+const routes = async function() {
+  const client = createClient({
+    space: process.env.CTF_SPACE_ID,
+  	accessToken: process.env.CTF_ACCESS_TOKEN
+  })
+
+  const [post, tag] = await Promise.all([
+    client.getEntries({ content_type: POSTS_PER_PAGE, limit: 1000 }),
+    client.getEntries({ content_type: CONTENT_TYPE_TAG })
+  ])
+
+  return [...post.items.map(item => `/posts/${item.sys.id}`), ...tag.items.map(item => `/tag/${item.sys.id}`)]
+}
 
 export default {
   mode: 'universal',
@@ -20,7 +35,7 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#fff' , ssr: false},
   /*
   ** Global CSS
   */
@@ -72,18 +87,7 @@ export default {
     }
 	},
 	generate: {
-    routes() {
-      return client
-        .getEntries({ content_type: 'post' })
-        .then(entries => {
-          return entries.items.map(entry => {
-            return {
-              route: "/posts/"+entry.fields.slug,
-              payload: entry
-            }
-          })
-        })
-    }
+    routes
   },
   env: {
     CTF_SPACE_ID: process.env.CTF_SPACE_ID,

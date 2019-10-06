@@ -1,5 +1,5 @@
 import { createClient } from 'contentful'
-import { CONTENT_TYPE_TAG, LIMIT_PAGE_NUM } from '@/config/setting'
+import { CONTENT_TYPE_TAG, LIMIT_PAGE_NUM,POSTS_PER_PAGE } from '@/config/setting'
 
 const client = createClient({
 	space: process.env.CTF_SPACE_ID,
@@ -8,7 +8,7 @@ const client = createClient({
 
 export const fetchPosts = ({page,tagId = null}) => {
 	let param = {
-		content_type: 'post',
+		content_type: POSTS_PER_PAGE,
     skip: (page - 1) * LIMIT_PAGE_NUM,
     order: '-sys.createdAt',
 		limit: LIMIT_PAGE_NUM,

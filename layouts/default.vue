@@ -19,14 +19,12 @@ export default {
 		TheError,
 		TheFooter,
 	},
-	data() {
-		return {
-			error: 'error'
-		}
-	},
 	head: {
     title: 'frontLabo',
 	},
+	computed: {
+		...mapState(['error'])
+	}
 }
 </script>
 

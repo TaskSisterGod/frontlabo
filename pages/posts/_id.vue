@@ -1,36 +1,38 @@
-<template>
-  <article class="article">
+ <template> 
+	<article class="article">
     <div class="single">
       <h1 class="post-title">{{ post.fields.title }}</h1>
       <p class="post-created-at">{{ formatDate(post.sys.createdAt) }}</p>
+			<TagList class="entry-tag" :tags="post.fields.tags" />
       <div class="post-content" v-html="$md.render(post.fields.context)"></div>
+			<p class="tag-button"><nuxt-link to="/">TOPへ</nuxt-link></p>
     </div>
   </article>
 </template>
 
 <script>
-import client from '~/plugins/contentful'
+import TagList from '@/components/TagList'
+import { mapGetters } from 'vuex'
 
 export default {
-  asyncData({ params, error, payload }) {
-    if (payload) return { post: payload }
-    return client
-      .getEntries({
-        content_type: 'post',
-        'fields.slug': params.slug,
-      })
-      .then(entries => {
-        return { post: entries.items[0] }
-      })
-      .catch(e => console.log(e))
-  },
-  head() {
+	components: {
+		TagList
+	},
+	computed: {
+		...mapGetters(['post']),
+	},
+	head() {
     return {
-      title: this.post.fields.title,
+      title: `${this.post.fields.title} | 邦画だってさ`
     }
   },
-  mounted() {
-    console.log(this.post)
+	async fetch({ store, params }) {
+		console.log(store)
+		console.log(params)
+    if (!process.browser) {
+      await store.dispatch('fetchPost', { id: params.id })
+    }
+    store.commit('setPostId', { id: params.id })
   },
   methods: {
     formatDate(iso) {
@@ -40,7 +42,10 @@ export default {
       const dd = new String(date.getDate()).padStart(2, "0")
       return `${yyyy}.${mm}.${dd}`
     }
-  }
+	},
+	mounted(){
+		console.log(this)
+	}
 }
 </script>
 
@@ -52,7 +57,6 @@ article.article {
     margin: 0 auto;
     padding: 10px;
     color: #222;
-    border: 2px solid #444;
     border-radius: 10px;
     h1, h2, h3 {
       margin: 16px 0;
@@ -62,12 +66,15 @@ article.article {
       text-decoration: underline;
     }
     .post-content {
+			font-size: 85%;
       h1 {
         font-size: 32px;
       }
       h2 {
         font-size: 24px;
-        background: #ccc
+        background: #258642;
+				color: white;
+				padding-left: 15px;
       }
       p {
         margin: 16px 0;
