@@ -1,6 +1,7 @@
  <template> 
 	<article class="article">
     <div class="single">
+			<TheBreadCrumb :breadcrumbs="post" />
       <h1 class="post-title">{{ post.fields.title }}</h1>
       <p class="post-created-at">{{ formatDate(post.sys.createdAt) }}</p>
 			<TagList class="entry-tag" :tags="post.fields.tags" />
@@ -12,11 +13,13 @@
 
 <script>
 import TagList from '@/components/TagList'
+import TheBreadCrumb from '@/components/TheBreadCrumb'
 import { mapGetters } from 'vuex'
 
 export default {
 	components: {
-		TagList
+		TagList,
+		TheBreadCrumb
 	},
 	computed: {
 		...mapGetters(['post']),

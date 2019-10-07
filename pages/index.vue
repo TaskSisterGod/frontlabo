@@ -1,6 +1,5 @@
 <template>
   <section class="latest-posts">
-		<TheNavigation />
     <div class="posts">
 			<h2 class="l-main-title">最新の記事</h2>
 			<PostContainer
@@ -16,14 +15,12 @@
 import { mapState, mapGetters, mapActions } from 'vuex'
 import client from '~/plugins/contentful'
 import TagList from '@/components/TagList'
-import TheNavigation from '@/layouts/partial/TheNavigation'
 import PostContainer from '@/components/PostContainer'
 import { POSTS_PER_PAGE } from '@/config/setting'
 
 export default {
 	components: {
 		TagList,
-		TheNavigation,
 		PostContainer
 	},
 	computed: {

@@ -1,6 +1,7 @@
 <template>
   <div>
 		<TheHeader />
+		<TheNavigation />
     <nuxt />
 		<TheError v-if="error" :message="error" />
 		<TheFooter />
@@ -12,12 +13,14 @@ import { mapGetters, mapState, mapActions } from 'vuex'
 import TheHeader from '@/layouts/partial/TheHeader'
 import TheError from '@/layouts/partial/TheError'
 import TheFooter from '@/layouts/partial/TheFooter'
+import TheNavigation from '@/layouts/partial/TheNavigation'
 
 export default {
 	components: {
 		TheHeader,
 		TheError,
 		TheFooter,
+		TheNavigation
 	},
 	head: {
     title: 'frontLabo',

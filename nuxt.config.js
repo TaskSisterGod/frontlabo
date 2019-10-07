@@ -48,7 +48,8 @@ export default {
   plugins: [
 		{src: '@/plugins/ga.js',ssr: false},
 		'@/plugins/element-ui',
-		'~/plugins/contentful'
+		'@/plugins/contentful',
+		'@/plugins/markdownit'
   ],
   /*
   ** Nuxt.js modules

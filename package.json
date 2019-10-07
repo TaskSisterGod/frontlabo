@@ -17,6 +17,8 @@
     "@nuxtjs/markdownit": "^1.2.6",
     "contentful": "^7.10.0",
     "element-ui": "^2.4.11",
+    "markdown-it-anchor": "^5.2.4",
+    "markdown-it-table-of-contents": "^0.4.4",
     "node-sass": "^4.12.0",
     "nuxt": "^2.0.0",
     "sass-loader": "^8.0.0"
