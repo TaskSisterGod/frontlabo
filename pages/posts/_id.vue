@@ -5,7 +5,7 @@
       <h1 class="post-title">{{ post.fields.title }}</h1>
       <p class="post-created-at">{{ formatDate(post.sys.createdAt) }}</p>
 			<TagList class="entry-tag" :tags="post.fields.tags" />
-      <div class="post-content" v-html="$md.render(post.fields.context)"></div>
+      <div class="post-content line-numbers" v-html="$md.render(post.fields.context)"></div>
 			<p class="tag-button"><nuxt-link to="/">TOPへ</nuxt-link></p>
     </div>
   </article>
@@ -46,9 +46,9 @@ export default {
       return `${yyyy}.${mm}.${dd}`
     }
 	},
-	mounted(){
-		console.log(this)
-	}
+	mounted() {
+    Prism.highlightAll()
+  }
 }
 </script>
 

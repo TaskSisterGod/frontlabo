@@ -49,7 +49,8 @@ export default {
 		{src: '@/plugins/ga.js',ssr: false},
 		'@/plugins/element-ui',
 		'@/plugins/contentful',
-		'@/plugins/markdownit'
+		'@/plugins/markdownit',
+		'@/plugins/prism'
   ],
   /*
   ** Nuxt.js modules
