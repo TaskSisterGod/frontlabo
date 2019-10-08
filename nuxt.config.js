@@ -13,7 +13,7 @@ const routes = async function() {
     client.getEntries({ content_type: CONTENT_TYPE_TAG })
   ])
 
-  return [...post.items.map(item => `/posts/${item.sys.id}`), ...tag.items.map(item => `/tag/${item.sys.id}`)]
+  return [...post.items.map(item => `/posts/${item.fields.slug}`), ...tag.items.map(item => `/tag/${item.sys.id}`)]
 }
 
 export default {
@@ -60,7 +60,8 @@ export default {
 		'@nuxtjs/axios',
 		'@nuxtjs/dotenv',
 		'@nuxtjs/markdownit',
-		'@nuxtjs/google-analytics'
+		'@nuxtjs/google-analytics',
+		'@nuxtjs/sitemap'
 	],
 	markdownit: {
     injected: true,
@@ -70,6 +71,32 @@ export default {
 	},
 	googleAnalytics: {
 		id: 'UA-149453538-2'
+	},
+	sitemap: {
+		path: '/sitemap.xml', // 出力パス
+  	hostname: 'https://frontlabo.com',
+		cacheTime: 1000 * 60 * 15,
+		generate: false, // nuxt generate で静的ファイル出力する場合にはtrueにする
+		exclude: [ // 除外項目
+			'/tag/**'
+		],
+		async routes(){
+			const client = contentful.createClient({
+				space: config.CTF_SPACE_ID,
+				accessToken: config.CTF_CDA_ACCESS_TOKEN
+			});
+			const posts = await client.getEntries({
+				'content_type': config.CTF_BLOG_POST_TYPE_ID,
+				order: '-sys.createdAt'
+			});
+	
+			let urls = [];
+			posts.items.forEach((val, idx, arr) => {
+				urls[idx] = val.fields.slug
+			});
+	
+			return urls;
+		}
 	},
   /*
   ** Axios module configuration
