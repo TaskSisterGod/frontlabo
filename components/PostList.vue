@@ -1,7 +1,7 @@
 <template>
   <ul class="post-list">
     <li class="post-item" v-for="post in posts" :key="post.sys.id">
-      <nuxt-link :to="`/posts/${post.fields.slug}`">
+      <nuxt-link :to="`/posts/${post.sys.id}`">
 				<div class="thumb">
 					<img :src="post.fields.image.fields.file.url" :alt="post.fields.title">
 				</div>

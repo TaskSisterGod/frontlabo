@@ -83,7 +83,7 @@ const createStore = () =>
           const item = await api.fetchPost(id)
 
           commit('mergePostEntities', { items: [item] })
-          commit('setPostId', { id: item.fields.slug })
+          commit('setPostId', { id: item.sys.id })
         } catch (e) {
           commit('setNetwordError')
         }
@@ -93,7 +93,7 @@ const createStore = () =>
       mergePostEntities(state, { items }) {
         state.entities.post = {
           ...state.entities.post,
-          ...items.reduce((obj, item) => ({ ...obj, [item.fields.slug]: item }), {})
+          ...items.reduce((obj, item) => ({ ...obj, [item.sys.id]: item }), {})
         }
       },
       mergeTagEntities(state, { items }) {
@@ -103,7 +103,7 @@ const createStore = () =>
         }
       },
       appendPostIds(state, { pageType, items }) {
-        state.index[pageType].ids = uniq([...state.index[pageType].ids, ...items.map(item => item.fields.slug)])
+        state.index[pageType].ids = uniq([...state.index[pageType].ids, ...items.map(item => item.sys.id)])
       },
       clearPostIds(state, { pageType }) {
         state.index[pageType].ids = []

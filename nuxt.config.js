@@ -13,7 +13,7 @@ const routes = async function() {
     client.getEntries({ content_type: CONTENT_TYPE_TAG })
   ])
 
-  return [...post.items.map(item => `/posts/${item.fields.slug}`), ...tag.items.map(item => `/tag/${item.sys.id}`)]
+  return [...post.items.map(item => `/posts/${item.sys.id}`), ...tag.items.map(item => `/tag/${item.sys.id}`)]
 }
 
 export default {
