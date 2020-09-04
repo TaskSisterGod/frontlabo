@@ -20,7 +20,7 @@
     "element-ui": "^2.4.11",
     "markdown-it-anchor": "^5.2.4",
     "markdown-it-table-of-contents": "^0.4.4",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "nuxt": "^2.0.0",
     "prismjs": "^1.17.1",
     "sass-loader": "^8.0.0"
